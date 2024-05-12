@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LC, NC, SC, UC } from "./data/PassCharacters";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from '../public/pngegg.png'
 
 function App() {
   const [uppercase, setUppercase] = useState(false);
@@ -44,7 +45,7 @@ function App() {
           >
             <img
               className="w-8 h-8 mr-2"
-              src="https://e7.pngegg.com/pngimages/435/425/png-clipart-logo-circle-brand-font-circle-angle-text-thumbnail.png"
+              src={logo}
               alt="logo"
             />
             Password Generator App
