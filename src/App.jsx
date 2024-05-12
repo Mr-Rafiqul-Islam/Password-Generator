@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { LC, NC, SC, UC } from "./data/PassCharacters";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [uppercase, setUppercase] = useState(false);
@@ -7,7 +9,7 @@ function App() {
   const [number, setNumber] = useState(false);
   const [symbols, setSymbols] = useState(false);
   const [passlength,setPasslength]= useState(10)
-  const [showpass,setShowpass]=useState("")
+  const [showfinalpass,setShowFinalpass]=useState("")
   let createPassword = () => {
     let finalPass=""
     let charset = "";
@@ -19,14 +21,22 @@ function App() {
       for(let i=1; i<=passlength; i++){
         finalPass+=charset.charAt(Math.floor(Math.random()*charset.length))
       }
-      setShowpass(finalPass)
+      setShowFinalpass(finalPass)
     } else {
       alert("Please select atleast one checkbox");
     }
   };
+  let copyPass=()=>{
+    navigator.clipboard.writeText(showfinalpass);
+    toast.success("Copied successfully!",{
+      position: "top-right",
+      autoClose: 1000,
+      })
+  }
   return (
     <>
       <section className="dark:bg-gray-900 !h-screen bg-blue-300">
+      <ToastContainer />
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
@@ -47,12 +57,12 @@ function App() {
               <div className="space-y-4 md:space-y-6">
                 <div className="flex justify-between items-center">
                   <input
-                    value={showpass}
+                    value={showfinalpass}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="text"
                     readOnly
                   />{" "}
-                  <button className="py-2 px-6 bg-red-500 text-white rounded-full">
+                  <button onClick={copyPass} className="py-2 px-6 bg-red-500 text-white rounded-full">
                     Copy
                   </button>
                 </div>
